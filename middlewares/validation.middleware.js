@@ -37,13 +37,13 @@ const registerValidation = [
 ];
 
 // Continuing validation.middleware.js
-const loginValidation = [
-  body("identifier")
-    .notEmpty()
-    .withMessage("Email or phone number is required"),
-  body("password").notEmpty().withMessage("Password is required"),
-  validate,
-];
+// const loginValidation = [
+//   body("identifier")
+//     .notEmpty()
+//     .withMessage("Email or phone number is required"),
+//   body("password").notEmpty().withMessage("Password is required"),
+//   validate,
+// ];
 
 const verifyOtpValidation = [
   body("userId").notEmpty().withMessage("User ID is required"),
@@ -139,7 +139,7 @@ const updatePasswordValidation = [
 
 module.exports = {
   registerValidation,
-  loginValidation,
+  //loginValidation,
   verifyOtpValidation,
   forgotPasswordValidation,
   resetPasswordValidation,

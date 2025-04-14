@@ -4,16 +4,11 @@ const { createOTPData, isOTPExpired } = require("../utils/otp.util");
 const { sendOtpEmail, sendPasswordResetEmail } = require("../utils/email.util");
 const { AppError } = require("../middlewares/error.middleware");
 
-/**
- * Register a new user
- * @route POST /api/auth/register
- * @access Public
- */
 const register = async (req, res, next) => {
   try {
     const { name, email, phone, password } = req.body;
 
-    // Check if user already exists
+    // Check if user already exists if yes return error
     const existingUser = await User.findOne({ $or: [{ email }, { phone }] });
     if (existingUser) {
       return res.status(400).json({
@@ -39,7 +34,6 @@ const register = async (req, res, next) => {
 
     res.status(201).json({
       success: true,
-      // Continuing auth.controller.js
       message:
         "User registered. Please verify your account with the OTP sent to your email",
       data: {
@@ -51,11 +45,6 @@ const register = async (req, res, next) => {
   }
 };
 
-/**
- * Verify OTP
- * @route POST /api/auth/verify-otp
- * @access Public
- */
 const verifyOTP = async (req, res, next) => {
   try {
     const { userId, otp } = req.body;
@@ -103,11 +92,6 @@ const verifyOTP = async (req, res, next) => {
   }
 };
 
-/**
- * Login user
- * @route POST /api/auth/login
- * @access Public
- */
 const login = async (req, res, next) => {
   try {
     const { identifier, password } = req.body;
@@ -166,15 +150,9 @@ const login = async (req, res, next) => {
   }
 };
 
-/**
- * Forgot password
- * @route POST /api/auth/forgot-password
- * @access Public
- */
 const forgotPassword = async (req, res, next) => {
   try {
     const { identifier } = req.body;
-
     // Find user by email or phone
     const user = await User.findOne({
       $or: [{ email: identifier }, { phone: identifier }],
@@ -187,7 +165,6 @@ const forgotPassword = async (req, res, next) => {
       });
     }
 
-    // Generate OTP
     const otpData = createOTPData();
     user.otp = otpData;
     await user.save();
@@ -207,11 +184,6 @@ const forgotPassword = async (req, res, next) => {
   }
 };
 
-/**
- * Reset password
- * @route POST /api/auth/reset-password
- * @access Public
- */
 const resetPassword = async (req, res, next) => {
   try {
     const { userId, otp, newPassword } = req.body;
@@ -246,11 +218,6 @@ const resetPassword = async (req, res, next) => {
   }
 };
 
-/**
- * Get current user
- * @route GET /api/auth/me
- * @access Private
- */
 const getMe = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);

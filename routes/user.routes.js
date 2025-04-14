@@ -20,14 +20,14 @@ const router = express.Router();
 
 // Protected routes
 router.get("/profile", protect, getUserProfile);
-router.put("/profile", protect, updateProfileValidation, updateUserProfile);
+router.put("/profile", protect, updateUserProfile);//updateProfileValidation
 router.put(
   "/profile/image",
   protect,
   upload.single("image"),
   uploadProfileImage
 );
-router.put("/password", protect, updatePasswordValidation, updatePassword);
+router.put("/password", protect, updatePassword); //updatePasswordValidation
 
 // Admin routes
 router.get("/", protect, restrictTo("admin"), getAllUsers);

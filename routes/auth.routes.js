@@ -18,9 +18,9 @@ const {
 
 const router = express.Router();
 
-router.post("/register", registerValidation, register);
-router.post("/verify-otp", verifyOtpValidation, verifyOTP);
-router.post("/login", loginValidation, login);
+router.post("/register", register);//registerValidation
+router.post("/verify-otp", verifyOTP); //verifyOtpValidation
+router.post("/login", login);//loginValidation
 router.post("/forgot-password", forgotPasswordValidation, forgotPassword);
 router.post("/reset-password", resetPasswordValidation, resetPassword);
 router.get("/me", protect, getMe);
