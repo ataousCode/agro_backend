@@ -16,8 +16,8 @@ connectDB();
 // Sample data
 const users = [
   {
-    name: "Admin User",
-    email: "admin@example.com",
+    name: "Atalib Ag",
+    email: "atalib@testing.com",
     phone: "1234567890",
     password: "password123",
     role: "admin",
