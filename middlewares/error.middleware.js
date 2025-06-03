@@ -1,6 +1,3 @@
-/**
- * Custom error class
- */
 class AppError extends Error {
   constructor(message, statusCode) {
     super(message);
@@ -12,17 +9,11 @@ class AppError extends Error {
   }
 }
 
-/**
- * Not found error handler
- */
 const notFound = (req, res, next) => {
   const error = new AppError(`Not Found - ${req.originalUrl}`, 404);
   next(error);
 };
 
-/**
- * Global error handler
- */
 const errorHandler = (err, req, res, next) => {
   const statusCode = err.statusCode || 500;
 
